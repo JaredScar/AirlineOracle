@@ -3,67 +3,20 @@
     -fx-background-repeat: no-repeat;
     -fx-background-size: 100% 100%;
 }
-
-/**
-    DataController
- */
-#dataGrid {
-    -fx-background-color: rgba(211, 211, 211, 0.72);
+/* SelectionPage */
+#SelectionGrid {
+    -fx-background-color: #bfbfbf;
+    -fx-padding: 20px 20px 20px 20px;
 }
-.sectionLabel {
-    -fx-font-size: 36px;
+#DatePick {
+    -fx-max-width: 250px;
+    -fx-min-width: 250px;
 }
-#dateLabel {
-    -fx-font-size: 20px;
+#PassengerSelect {
+    -fx-max-width: 250px;
+    -fx-min-width: 250px;
 }
-#datePicker {
-    -fx-max-width: 100px;
-}
-#seatLabel {
-    -fx-font-size: 20px;
-}
-.creaseButton {}
-#numberLabel {
-    -fx-font-size: 24px;
-}
-#dataSubmit {
-    -fx-max-width: 100px;
-    -fx-font-size: 14px;
-}
-
-/**
-    SeatController
- */
-#planeLeft {
-    -fx-background-color: lightgray;
-    -fx-padding: 20px 0 30px 30px;
-    -fx-background-radius: 0 0 0 150px;
-    -fx-hgap: 4px;
-    -fx-vgap: 8px;
-}
-#planeMid {
-    -fx-background-color: lightgray;
-    -fx-padding: 20px 0 30px 50px;
-    -fx-hgap: 4px;
-    -fx-vgap: 8px;
-}
-#planeRight {
-    -fx-background-color: lightgray;
-    -fx-padding: 20px 30px 30px 50px;
-    -fx-background-radius: 0 0 150px 0;
-    -fx-hgap: 4px;
-    -fx-vgap: 8px;
-}
-.SeatButton {
-    -fx-background-color: limegreen;
-    -fx-padding: 5px 10px 5px 10px;
-    -fx-min-width: 60px;
-}
-.SeatButton:hover {
-    -fx-background-color: white;
-    -fx-cursor: hand;
-}
-.SeatButton-Disabled {
-    -fx-background-color: red;
-    -fx-text-fill: white;
+#SubmitButton {
+    -fx-max-width: 250px;
+    -fx-min-width: 250px;
 }

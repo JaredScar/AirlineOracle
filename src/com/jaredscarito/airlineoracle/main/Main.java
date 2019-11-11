@@ -1,11 +1,8 @@
 package com.jaredscarito.airlineoracle.main;
 
-import com.jaredscarito.airlineoracle.controller.DataController;
-import com.jaredscarito.airlineoracle.controller.SeatController;
+import com.jaredscarito.airlineoracle.controller.SelectionController;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -21,9 +18,11 @@ public class Main extends Application {
         primaryStage.setTitle("Delta Airlines Manager");
         Toolkit tk = Toolkit.getDefaultToolkit();
         mainPanel = new GridPane();
-        new DataController(this);
-        new SeatController(this);
-        primaryStage.setScene(new Scene(mainPanel, tk.getScreenSize().getWidth() - 100, (tk.getScreenSize().getHeight()) - 150));
+        SelectionController selectControl = new SelectionController(this);
+        primaryStage.setScene(new Scene(mainPanel,
+                tk.getScreenSize().getWidth() - 30,
+                (tk.getScreenSize().getHeight()) - 30
+        ));
         primaryStage.getScene().getStylesheets().add("com/jaredscarito/airlineoracle/view/style.css");
         primaryStage.show();
     }
