@@ -1,4 +1,4 @@
-.root {
+#main {
     -fx-background-image: url("https://cdn-image.travelandleisure.com/sites/default/files/1561562676/delta-airplanes-atl-airport-DELTATEXT0619.jpg");
     -fx-background-repeat: no-repeat;
     -fx-background-size: 100% 100%;
@@ -8,6 +8,7 @@
     -fx-background-color: #bfbfbf;
     -fx-padding: 20px 20px 20px 20px;
 }
+#logo {}
 #DatePick {
     -fx-max-width: 250px;
     -fx-min-width: 250px;
@@ -20,3 +21,7 @@
     -fx-max-width: 250px;
     -fx-min-width: 250px;
 }
+
+/* SeatSelectPage */
+#SeatMainPanel {}
+#SeatScrollPane {}
