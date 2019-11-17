@@ -7,8 +7,10 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 
 public class SeatSelectController {
@@ -35,7 +37,7 @@ public class SeatSelectController {
         scrollGrid.setAlignment(Pos.TOP_CENTER);
         scrollGrid.setId("ScrollGrid");
         scrollGrid.setBackground(new Background(new BackgroundImage(new Image(
-                      "com/jaredscarito/airlineoracle/view/Delta-Airplane-Layout.png"), BackgroundRepeat.NO_REPEAT,
+                      "com/jaredscarito/airlineoracle/view/Delta-Airplane-Layout-EDITED.jpg"), BackgroundRepeat.NO_REPEAT,
                     BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(main.getScreenWidth() * 2,
                   main.getScreenHeight() * 2, false, false, false, false))));
         scrollGrid.setPrefHeight(main.getToolKit().getScreenSize().getHeight() * 2);
@@ -43,19 +45,21 @@ public class SeatSelectController {
 
         GridPane buttonGrid = new GridPane();
         buttonGrid.setTranslateX(-40);
-        buttonGrid.setTranslateY(992);
+        buttonGrid.setTranslateY(994);
         buttonGrid.setId("ButtonGrid");
-        buttonGrid.setVgap(5);
+        buttonGrid.setVgap(4);
         String letters = "ABCDEFG";
         int currLetIndex = 0;
         int rowInd = 0;
         int colInd = 0;
-        for (int i=0; i < 136; i++) {
+        for (int i=0; i < 143; i++) {
             char curLet = letters.charAt(currLetIndex);
             currLetIndex++;
             String currentSeat = i + "" + curLet;
             Button btn = new Button("");
             btn.getStyleClass().add("seatButton");
+            Tooltip tip = new Tooltip("Seat " + (rowInd + 22) + "" + curLet);
+            btn.setTooltip(tip);
             btn.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
@@ -82,7 +86,7 @@ public class SeatSelectController {
                 currLetIndex = 0;
                 rowInd++;
                 colInd = 0;
-                if (i == 132) {
+                if (i == 139) {
                     currLetIndex = 2;
                     colInd = 2;
                 }

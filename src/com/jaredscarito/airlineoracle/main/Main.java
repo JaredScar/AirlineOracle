@@ -3,8 +3,10 @@ package com.jaredscarito.airlineoracle.main;
 import com.jaredscarito.airlineoracle.controller.LoadingController;
 import com.jaredscarito.airlineoracle.controller.SeatSelectController;
 import com.jaredscarito.airlineoracle.controller.SelectionController;
+import com.jaredscarito.airlineoracle.model.MathModel;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -36,6 +38,11 @@ public class Main extends Application {
         // Controllers END
         primaryStage.getScene().getStylesheets().add("com/jaredscarito/airlineoracle/view/style.css");
         primaryStage.show();
+
+        primaryStage.getIcons().add(new Image("com/jaredscarito/airlineoracle/view/delta-logo-favicon.png"));
+
+        // TESTING:
+        MathModel.getCoefficients();
     }
 
     public Toolkit getToolKit() {
