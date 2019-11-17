@@ -24,4 +24,23 @@
 
 /* SeatSelectPage */
 #SeatMainPanel {}
+.scroll-bar {
+    -fx-min-width: 50px;
+    -fx-max-width: 50px;
+    -fx-background-color: black;
+}
+.scroll-bar:vertical > .thumb {
+    -fx-background-color: blue;
+}
 #SeatScrollPane {}
+#ScrollGrid {}
+#ButtonGrid {
+    -fx-hgap: 2px;
+}
+.seatButton {
+    -fx-pref-width: 28px;
+    -fx-background-color: #3250A3;
+}
+.seatButton.taken {
+    -fx-background-color: #E5E5E5;
+}
