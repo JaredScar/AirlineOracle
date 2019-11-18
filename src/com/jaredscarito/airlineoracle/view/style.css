@@ -43,6 +43,3 @@
 .seatButton:hover {
     -fx-cursor: hand;
 }
-.seatButton.taken {
-    -fx-background-color: #E5E5E5;
-}

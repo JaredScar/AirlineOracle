@@ -16,13 +16,14 @@ import javafx.scene.layout.GridPane;
 
 import java.time.LocalDate;
 
-public class SelectionController {
+public class SelectionController implements Controller {
     private Main main;
 
     public SelectionController(Main main) {
         this.main = main;
     }
 
+    @Override
     public void start() {
         GridPane mainPanel = new GridPane();
         mainPanel.setId("main");
@@ -90,7 +91,7 @@ public class SelectionController {
                     // Move onto next screen
                     main.setDateSelected(val);
                     main.setPassengerCount(Integer.parseInt(passengerVal));
-                    main.getLoadingControl().start();
+                    main.getLoadingControl().start(main.getSeatSelectController());
                 }
                 submit.setDisable(false);
             }

@@ -13,7 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 
-public class SeatSelectController {
+public class SeatSelectController implements Controller {
     private Main main;
     public SeatSelectController(Main main) {
         this.main = main;
@@ -55,9 +55,9 @@ public class SeatSelectController {
         for (int i=0; i < 143; i++) {
             char curLet = letters.charAt(currLetIndex);
             currLetIndex++;
-            String currentSeat = i + "" + curLet;
             Button btn = new Button("");
             // TODO Need to check if seat is taken
+            // TODO SQL FOR ABOVE ^^^
             // NOT TAKEN:
             btn.setGraphic(new ImageView(new Image("com/jaredscarito/airlineoracle/view/empty-main-seat.png", 20, 21, true, true)));
             // TAKEN:
@@ -68,12 +68,46 @@ public class SeatSelectController {
             btn.setTooltip(tip);
             String seat = (rowInd + 22) + "" + curLet;
             btn.setOnAction(new EventHandler<ActionEvent>() {
+                int selected = 0;
+                String[] selectedSeats = new String[9];
                 @Override
                 public void handle(ActionEvent event) {
                     // We need to track which seat row and letter this is, then have it save it somewhere
                     // and it needs to check if they selected the number of seats they wanted, then progress to next
-                    // TODO
-                    System.out.println("You are clicking " + "Seat " + seat); // DEBUG - Get rid of
+                    boolean wasSelected = false;
+                    for (int i=0; i < selectedSeats.length; i++) {
+                        if (selectedSeats[i] !=null) {
+                            // It was selected already
+                            wasSelected = true;
+                        }
+                    }
+                    if (!wasSelected) {
+                        // Wasn't selected, set it selected
+                        selected++;
+                        for (int i=0; i < selectedSeats.length; i++) {
+                            if (selectedSeats[i] == null) {
+                                selectedSeats[i] = seat;
+                                break;
+                            }
+                        }
+                        btn.setGraphic(new ImageView(new Image("com/jaredscarito/airlineoracle/view/taken-main-seat.png", 20, 21, true, true)));
+                    } else {
+                        // Unselect it
+                        selected--;
+                        for (int i=0; i < selectedSeats.length; i++) {
+                            if (selectedSeats[i] != null && selectedSeats[i].equals(seat)) {
+                                selectedSeats[i] = null;
+                                break;
+                            }
+                        }
+                        btn.setGraphic(new ImageView(new Image("com/jaredscarito/airlineoracle/view/empty-main-seat.png", 20, 21, true, true)));
+                    }
+                    if (main.getPassengerCount() == selected) {
+                        // They have selected the right count, show the button to go to next page
+                        // TODO Change this to a button
+                        main.getLoadingControl().start(main.getInputInfoController());
+                    }
+                    System.out.println("You are clicking " + "Seat " + seat); //TODO  DEBUG - Get rid of
                 }
             });
             buttonGrid.add(btn, colInd, rowInd);

@@ -13,11 +13,7 @@ public class MathModel {
      * Seats Available
      */
     public static double b1, b2, a;
-
-    /**
-     * This will get coefficients A and B
-     * @return new double[] {coA, coB}
-     */
+    
     public static void getCoefficients(Main main) {
         // USE SQL TO GET THE X AND Y FROM OUR TABLE:
         try {

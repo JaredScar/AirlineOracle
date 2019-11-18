@@ -1,5 +1,6 @@
 package com.jaredscarito.airlineoracle.main;
 
+import com.jaredscarito.airlineoracle.controller.InputInfoController;
 import com.jaredscarito.airlineoracle.controller.LoadingController;
 import com.jaredscarito.airlineoracle.controller.SeatSelectController;
 import com.jaredscarito.airlineoracle.controller.SelectionController;
@@ -20,11 +21,13 @@ public class Main extends Application {
     private Stage primary;
     private LoadingController loadingControl;
     private SeatSelectController seatSelectController;
+    private InputInfoController inputInfoController;
     private SQLHelper helper;
 
     // Need to keep track of this data:
     private int passengerCount = 0;
     private LocalDate dateSelected = null;
+    private String[] seatsSelected;
 
     public void setPassengerCount(int count) {
         this.passengerCount = count;
@@ -37,6 +40,12 @@ public class Main extends Application {
     }
     public LocalDate getDateSelected() {
         return this.dateSelected;
+    }
+    public void setSeatsSelected(String[] seats) {
+        this.seatsSelected = seats;
+    }
+    public String[] getSeatsSelected() {
+        return this.seatsSelected;
     }
 
     @Override
@@ -54,7 +63,9 @@ public class Main extends Application {
         selectControl.start();
         LoadingController loadingControl = new LoadingController(this);
         SeatSelectController seatControl = new SeatSelectController(this);
+        InputInfoController inputInfoController = new InputInfoController(this);
         this.seatSelectController = seatControl;
+        this.inputInfoController = inputInfoController;
         this.loadingControl = loadingControl;
         // Controllers END
         primaryStage.getScene().getStylesheets().add("com/jaredscarito/airlineoracle/view/style.css");
@@ -98,6 +109,10 @@ public class Main extends Application {
 
     public SeatSelectController getSeatSelectController() {
         return this.seatSelectController;
+    }
+
+    public InputInfoController getInputInfoController() {
+        return this.inputInfoController;
     }
 
     public static void main(String[] args) {

@@ -15,13 +15,13 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class LoadingController {
+public class LoadingController implements Controller {
     private Main main;
     public LoadingController(Main main) {
         this.main = main;
     }
 
-    public void start() {
+    public void start(Controller controller) {
         GridPane mainPanel = new GridPane();
         mainPanel.setBackground(new Background(new BackgroundImage(new Image("com/jaredscarito/airlineoracle/view/plane-loading-gif.gif"), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
                 BackgroundPosition.CENTER, new BackgroundSize(main.getScreenWidth(), main.getScreenHeight(), false, false, false, false))));
@@ -38,10 +38,13 @@ public class LoadingController {
 
             @Override
             public void handle(ActionEvent event) {
-                main.getSeatSelectController().start();
+                controller.start();
             }
         }));
         fiveSecondsWonder.setCycleCount(1);
         fiveSecondsWonder.play();
     }
+
+    @Override
+    public void start() {}
 }
