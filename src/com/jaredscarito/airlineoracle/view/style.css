@@ -35,11 +35,10 @@
 #SeatScrollPane {}
 #ScrollGrid {}
 #ButtonGrid {
-    -fx-hgap: 2px;
+    -fx-hgap: 1px;
 }
 .seatButton {
-    -fx-pref-width: 28px;
-    -fx-background-color: #3250A3;
+    -fx-background-color: transparent;
 }
 .seatButton.taken {
     -fx-background-color: #E5E5E5;

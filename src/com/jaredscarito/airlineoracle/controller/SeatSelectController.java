@@ -44,10 +44,10 @@ public class SeatSelectController {
         scrollGrid.setPrefWidth(main.getToolKit().getScreenSize().getWidth() * 2);
 
         GridPane buttonGrid = new GridPane();
-        buttonGrid.setTranslateX(-40);
+        buttonGrid.setTranslateX(-25);
         buttonGrid.setTranslateY(994);
         buttonGrid.setId("ButtonGrid");
-        buttonGrid.setVgap(4);
+        buttonGrid.setVgap(0);
         String letters = "ABCDEFG";
         int currLetIndex = 0;
         int rowInd = 0;
@@ -57,6 +57,12 @@ public class SeatSelectController {
             currLetIndex++;
             String currentSeat = i + "" + curLet;
             Button btn = new Button("");
+            // TODO Need to check if seat is taken
+            // NOT TAKEN:
+            btn.setGraphic(new ImageView(new Image("com/jaredscarito/airlineoracle/view/empty-main-seat.png", 20, 21, true, true)));
+            // TAKEN:
+            //btn.setGraphic(new ImageView(new Image("com/jaredscarito/airlineoracle/view/taken-main-seat.png", 20, 21, true, true)));
+            // END TODO
             btn.getStyleClass().add("seatButton");
             Tooltip tip = new Tooltip("Seat " + (rowInd + 22) + "" + curLet);
             btn.setTooltip(tip);
@@ -74,11 +80,11 @@ public class SeatSelectController {
             }
             if(curLet == 'C' || curLet == 'D' || curLet == 'E') {
                 // Spacing to the left via translateX
-                btn.setTranslateX(40);
+                btn.setTranslateX(25);
             } else
                 if (curLet == 'F' || curLet == 'G') {
                     // Spacing to the left via translateX
-                    btn.setTranslateX(80);
+                    btn.setTranslateX(48);
                     btn.setTranslateY(-5);
                 }
                 colInd++;
