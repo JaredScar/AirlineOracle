@@ -56,14 +56,14 @@ public class SelectionController {
         passengers.setPromptText("Select Passenger Amount");
         passengers.setId("PassengerSelect");
         passengers.getItems().add("1 Passenger");
-        passengers.getItems().add("2 Passenger");
-        passengers.getItems().add("3 Passenger");
-        passengers.getItems().add("4 Passenger");
-        passengers.getItems().add("5 Passenger");
-        passengers.getItems().add("6 Passenger");
-        passengers.getItems().add("7 Passenger");
-        passengers.getItems().add("8 Passenger");
-        passengers.getItems().add("9 Passenger");
+        passengers.getItems().add("2 Passengers");
+        passengers.getItems().add("3 Passengers");
+        passengers.getItems().add("4 Passengers");
+        passengers.getItems().add("5 Passengers");
+        passengers.getItems().add("6 Passengers");
+        passengers.getItems().add("7 Passengers");
+        passengers.getItems().add("8 Passengers");
+        passengers.getItems().add("9 Passengers");
         grid.add(passengers, 0, 2);
 
         Button submit = new Button("Submit");
@@ -72,18 +72,24 @@ public class SelectionController {
             @Override
             public void handle(ActionEvent event) {
                 LocalDate val = picker.getValue();
-                Object passengerVal = passengers.getValue();
+                String passengerVal = "";
+                if (passengers.getValue() != null) {
+                    passengerVal = passengers.getValue().toString().replace("Passengers", "")
+                            .replace("Passenger", "").replace(" ", "");
+                }
                 submit.setDisable(true);
                 if (val == null) {
                     // They didn't put a date, bring an error
                     //TODO
                 }
-                if (passengerVal == null) {
+                if (passengerVal.length() == 0) {
                     // They didn't pick number of passengers, bring an error
                     //TODO
                 }
-                if (val !=null && passengerVal != null) {
+                if (val !=null && passengers.getValue() != null) {
                     // Move onto next screen
+                    main.setDateSelected(val);
+                    main.setPassengerCount(Integer.parseInt(passengerVal));
                     main.getLoadingControl().start();
                 }
                 submit.setDisable(false);

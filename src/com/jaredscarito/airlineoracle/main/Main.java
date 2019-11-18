@@ -4,6 +4,7 @@ import com.jaredscarito.airlineoracle.controller.LoadingController;
 import com.jaredscarito.airlineoracle.controller.SeatSelectController;
 import com.jaredscarito.airlineoracle.controller.SelectionController;
 import com.jaredscarito.airlineoracle.model.MathModel;
+import com.jaredscarito.airlineoracle.model.SQLHelper;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -11,12 +12,32 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.awt.*;
+import java.sql.SQLException;
+import java.time.LocalDate;
 
 public class Main extends Application {
 
     private Stage primary;
     private LoadingController loadingControl;
     private SeatSelectController seatSelectController;
+    private SQLHelper helper;
+
+    // Need to keep track of this data:
+    private int passengerCount = 0;
+    private LocalDate dateSelected = null;
+
+    public void setPassengerCount(int count) {
+        this.passengerCount = count;
+    }
+    public int getPassengerCount() {
+        return this.passengerCount;
+    }
+    public void setDateSelected(LocalDate date) {
+        this.dateSelected = date;
+    }
+    public LocalDate getDateSelected() {
+        return this.dateSelected;
+    }
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -40,9 +61,13 @@ public class Main extends Application {
         primaryStage.show();
 
         primaryStage.getIcons().add(new Image("com/jaredscarito/airlineoracle/view/delta-logo-favicon.png"));
-
+        try {
+            this.helper = new SQLHelper("ip", 3306, "servicename", "username", "port");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         // TESTING:
-        MathModel.getCoefficients();
+        //MathModel.getCoefficients(this);
     }
 
     public Toolkit getToolKit() {
@@ -57,6 +82,10 @@ public class Main extends Application {
     public double getScreenWidth() {
         Toolkit tk = Toolkit.getDefaultToolkit();
         return tk.getScreenSize().getWidth() - 80;
+    }
+
+    public SQLHelper getHelper() {
+        return helper;
     }
 
     public Stage getPrimaryStage() {

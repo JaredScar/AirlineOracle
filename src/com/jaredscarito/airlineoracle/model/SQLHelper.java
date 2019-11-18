@@ -4,9 +4,7 @@ import java.sql.*;
 
 public class SQLHelper {
     private Connection conn;
-    public SQLHelper(String ip, int port, String serviceName, String username, String password) throws SQLException, ClassNotFoundException {
-
-        Class.forName("oracle.jdbc.driver.OracleDriver");
+    public SQLHelper(String ip, int port, String serviceName, String username, String password) throws SQLException {
 
         String dbURL = "jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=" + ip
                 + ")(PORT=" + port + ")))(CONNECT_DATA=(SERVICE_NAME=" + serviceName + ")))";

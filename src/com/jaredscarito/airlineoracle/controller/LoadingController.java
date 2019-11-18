@@ -11,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
 
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -31,7 +32,9 @@ public class LoadingController {
         main.getPrimaryStage().getScene().getStylesheets().add("com/jaredscarito/airlineoracle/view/style.css");
         main.getPrimaryStage().show();
 
-        Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.seconds(4), new EventHandler<ActionEvent>() {
+        Random rand = new Random();
+        int randNum = rand.nextInt((7 - 3) + 3) + 3;
+        Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.seconds(randNum), new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {

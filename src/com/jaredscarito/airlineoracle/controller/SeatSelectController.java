@@ -66,12 +66,14 @@ public class SeatSelectController {
             btn.getStyleClass().add("seatButton");
             Tooltip tip = new Tooltip("Seat " + (rowInd + 22) + "" + curLet);
             btn.setTooltip(tip);
+            String seat = (rowInd + 22) + "" + curLet;
             btn.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
                     // We need to track which seat row and letter this is, then have it save it somewhere
                     // and it needs to check if they selected the number of seats they wanted, then progress to next
                     // TODO
+                    System.out.println("You are clicking " + "Seat " + seat); // DEBUG - Get rid of
                 }
             });
             buttonGrid.add(btn, colInd, rowInd);
