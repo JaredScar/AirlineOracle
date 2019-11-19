@@ -28,6 +28,7 @@ public class Main extends Application {
     private int passengerCount = 0;
     private LocalDate dateSelected = null;
     private String[] seatsSelected;
+    private int seatsSelCount = 0;
 
     public void setPassengerCount(int count) {
         this.passengerCount = count;
@@ -46,6 +47,12 @@ public class Main extends Application {
     }
     public String[] getSeatsSelected() {
         return this.seatsSelected;
+    }
+    public void setSeatsSelCount(int count) {
+        this.seatsSelCount = count;
+    }
+    public int getSeatsSelCount() {
+        return this.seatsSelCount;
     }
 
     @Override
@@ -73,7 +80,10 @@ public class Main extends Application {
 
         primaryStage.getIcons().add(new Image("com/jaredscarito/airlineoracle/view/delta-logo-favicon.png"));
         try {
-            this.helper = new SQLHelper("ip", 3306, "servicename", "username", "port");
+            this.helper = new SQLHelper("10.0.20.23",
+                    1521, "ORCL12.campus.sjcny.edu",
+                    "jscarito", "0341922");
+            System.out.println("IT CONNECTED!");
         } catch (SQLException e) {
             e.printStackTrace();
         }

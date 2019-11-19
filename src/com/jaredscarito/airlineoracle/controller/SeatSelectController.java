@@ -26,9 +26,9 @@ public class SeatSelectController implements Controller {
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setId("SeatScrollPane");
         //mainPanel.setBackground(new Background(new BackgroundImage(new Image(
-          //      "com/jaredscarito/airlineoracle/view/Delta-Airplane-Layout.png"), BackgroundRepeat.NO_REPEAT,
-            //    BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(main.getScreenWidth(),
-              //  main.getScreenHeight(), false, false, false, true))));
+        //      "com/jaredscarito/airlineoracle/view/Delta-Airplane-Layout.png"), BackgroundRepeat.NO_REPEAT,
+        //    BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(main.getScreenWidth(),
+        //  main.getScreenHeight(), false, false, false, true))));
         ImageView plane = new ImageView(new Image("com/jaredscarito/airlineoracle/view/Delta-Airplane-Layout.png"));
         plane.setFitWidth(main.getToolKit().getScreenSize().getWidth() * 5);
         plane.setFitHeight(main.getToolKit().getScreenSize().getHeight() * 5);
@@ -37,9 +37,9 @@ public class SeatSelectController implements Controller {
         scrollGrid.setAlignment(Pos.TOP_CENTER);
         scrollGrid.setId("ScrollGrid");
         scrollGrid.setBackground(new Background(new BackgroundImage(new Image(
-                      "com/jaredscarito/airlineoracle/view/Delta-Airplane-Layout-EDITED.jpg"), BackgroundRepeat.NO_REPEAT,
-                    BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(main.getScreenWidth() * 2,
-                  main.getScreenHeight() * 2, false, false, false, false))));
+                "com/jaredscarito/airlineoracle/view/Delta-Airplane-Layout-EDITED.jpg"), BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(main.getScreenWidth() * 2,
+                main.getScreenHeight() * 2, false, false, false, false))));
         scrollGrid.setPrefHeight(main.getToolKit().getScreenSize().getHeight() * 2);
         scrollGrid.setPrefWidth(main.getToolKit().getScreenSize().getWidth() * 2);
 
@@ -68,7 +68,6 @@ public class SeatSelectController implements Controller {
             btn.setTooltip(tip);
             String seat = (rowInd + 22) + "" + curLet;
             btn.setOnAction(new EventHandler<ActionEvent>() {
-                int selected = 0;
                 String[] selectedSeats = new String[9];
                 @Override
                 public void handle(ActionEvent event) {
@@ -83,7 +82,9 @@ public class SeatSelectController implements Controller {
                     }
                     if (!wasSelected) {
                         // Wasn't selected, set it selected
-                        selected++;
+                        System.out.println("Added to selected count");
+                        System.out.println("The select count is: " + main.getSeatsSelCount());
+                        main.setSeatsSelCount(main.getSeatsSelCount() + 1);
                         for (int i=0; i < selectedSeats.length; i++) {
                             if (selectedSeats[i] == null) {
                                 selectedSeats[i] = seat;
@@ -93,7 +94,8 @@ public class SeatSelectController implements Controller {
                         btn.setGraphic(new ImageView(new Image("com/jaredscarito/airlineoracle/view/taken-main-seat.png", 20, 21, true, true)));
                     } else {
                         // Unselect it
-                        selected--;
+                        System.out.println("Removed from selected count");
+                        main.setSeatsSelCount(main.getSeatsSelCount() - 1);
                         for (int i=0; i < selectedSeats.length; i++) {
                             if (selectedSeats[i] != null && selectedSeats[i].equals(seat)) {
                                 selectedSeats[i] = null;
@@ -102,7 +104,8 @@ public class SeatSelectController implements Controller {
                         }
                         btn.setGraphic(new ImageView(new Image("com/jaredscarito/airlineoracle/view/empty-main-seat.png", 20, 21, true, true)));
                     }
-                    if (main.getPassengerCount() == selected) {
+                    //System.out.println("The length of selected is: " + selected);
+                    if (main.getPassengerCount() == main.getSeatsSelCount()) {
                         // They have selected the right count, show the button to go to next page
                         // TODO Change this to a button
                         main.getLoadingControl().start(main.getInputInfoController());
@@ -118,13 +121,13 @@ public class SeatSelectController implements Controller {
                 // Spacing to the left via translateX
                 btn.setTranslateX(25);
             } else
-                if (curLet == 'F' || curLet == 'G') {
-                    // Spacing to the left via translateX
-                    btn.setTranslateX(48);
-                    btn.setTranslateY(-5);
-                }
-                colInd++;
-                if (currLetIndex == letters.length()) {
+            if (curLet == 'F' || curLet == 'G') {
+                // Spacing to the left via translateX
+                btn.setTranslateX(48);
+                btn.setTranslateY(-5);
+            }
+            colInd++;
+            if (currLetIndex == letters.length()) {
                 currLetIndex = 0;
                 rowInd++;
                 colInd = 0;

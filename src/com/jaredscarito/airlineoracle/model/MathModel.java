@@ -4,6 +4,7 @@ import com.jaredscarito.airlineoracle.main.Main;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class MathModel {
     /**
@@ -13,16 +14,23 @@ public class MathModel {
      * Seats Available
      */
     public static double b1, b2, a;
-    
+
     public static void getCoefficients(Main main) {
         // USE SQL TO GET THE X AND Y FROM OUR TABLE:
         try {
             /**/ // SQL SHIT:
             SQLHelper helper = main.getHelper();
-            ResultSet res = helper.runQuery("SELECT Seats_Available, Days_To_Flight, Price_USD FROM FLIGHT;");
-            double[] xVars = new double[res.getFetchSize()];
-            double[] xVars2 = new double[res.getFetchSize()];
-            double[] yVars = new double[res.getFetchSize()];
+            ResultSet countOfRows = helper.runQuery("SELECT COUNT(*)"
+                    + " FROM FLIGHT");
+            countOfRows.next();
+            int size = countOfRows.getInt(1);
+            System.out.println("The size of rows is " + size);
+            ResultSet res = helper.runQuery(
+                    "SELECT Available_Seats, Days_To_Flight, "
+                            + "Price_USD FROM FLIGHT");
+            double[] xVars = new double[size];
+            double[] xVars2 = new double[size];
+            double[] yVars = new double[size];
             int count = 0;
             while (res.next()) {
                 double x1 = res.getDouble(1);
