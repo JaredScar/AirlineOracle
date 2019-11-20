@@ -43,3 +43,15 @@
 .seatButton:hover {
     -fx-cursor: hand;
 }
+/* InputInfoPage */
+
+#InputMainPanel {
+    -fx-background-image: url("https://cdn-image.travelandleisure.com/sites/default/files/1561562676/delta-airplanes-atl-airport-DELTATEXT0619.jpg");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 100% 100%;
+}
+#InputGrid {
+    -fx-background-color: #F1F1F1;
+    -fx-padding: 50px 50px 50px 50px;
+}
+.inputLabel {}
