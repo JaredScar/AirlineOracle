@@ -38,14 +38,14 @@ public class SeatSelectController implements Controller {
         scrollGrid.setId("ScrollGrid");
         scrollGrid.setBackground(new Background(new BackgroundImage(new Image(
                 "com/jaredscarito/airlineoracle/view/Delta-Airplane-Layout-EDITED.jpg"), BackgroundRepeat.NO_REPEAT,
-                BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(main.getScreenWidth() * 2,
-                main.getScreenHeight() * 2, false, false, false, false))));
-        scrollGrid.setPrefHeight(main.getToolKit().getScreenSize().getHeight() * 2);
-        scrollGrid.setPrefWidth(main.getToolKit().getScreenSize().getWidth() * 2);
+                BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(main.getScreenWidth() * 2.5,
+                main.getScreenHeight() * 2.5, false, false, false, false))));
+        scrollGrid.setPrefHeight(main.getToolKit().getScreenSize().getHeight() * 2.5);
+        scrollGrid.setPrefWidth(main.getToolKit().getScreenSize().getWidth() * 2.5);
 
         GridPane buttonGrid = new GridPane();
         buttonGrid.setTranslateX(-25);
-        buttonGrid.setTranslateY(994);
+        buttonGrid.setTranslateY(1260);
         buttonGrid.setId("ButtonGrid");
         buttonGrid.setVgap(0);
         String letters = "ABCDEFG";

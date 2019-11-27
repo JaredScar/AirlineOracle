@@ -79,6 +79,7 @@ public class Main extends Application {
         primaryStage.show();
 
         primaryStage.getIcons().add(new Image("com/jaredscarito/airlineoracle/view/delta-logo-favicon.png"));
+        primaryStage.setResizable(false);
         try {
             this.helper = new SQLHelper("10.0.20.23",
                     1521, "ORCL12.campus.sjcny.edu",
@@ -97,12 +98,12 @@ public class Main extends Application {
 
     public double getScreenHeight() {
         Toolkit tk = Toolkit.getDefaultToolkit();
-        return tk.getScreenSize().getHeight() - 80;
+        return 800;
     }
 
     public double getScreenWidth() {
         Toolkit tk = Toolkit.getDefaultToolkit();
-        return tk.getScreenSize().getWidth() - 80;
+        return 1400;
     }
 
     public SQLHelper getHelper() {
