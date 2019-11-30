@@ -29,23 +29,24 @@ public class InputInfoController implements Controller {
         ImageView img = new ImageView(deltaLogo);
         img.setId("InputLogo");
         img.setFitHeight(150);
-        img.setFitWidth(380);
-        grid.setVgap(10);
+        img.setFitWidth(450);
+        grid.setVgap(15);
         grid.add(img, 0, 0, 4, 1);
+        grid.setGridLinesVisible(false);
 
         Label merchantName = new Label("Merchant Name:");
         merchantName.getStyleClass().add("inputLabel");
         Label merchantNameDef = new Label("DELTA AIRLINES");
-        //merchantNameDef.setStyle("-fx-padding: 0px 0px 0px 50px;");
+        merchantNameDef.setStyle("-fx-padding: 0px 0px 0px 50px;");
         grid.add(merchantName, 0, 1);
-        grid.add(merchantNameDef, 1, 1);
+        grid.add(merchantNameDef, 1, 1, 2, 1);
 
         Label orderInfo = new Label("Total Tickets:");
         orderInfo.getStyleClass().add("inputLabel");
         Label totalTickets = new Label(main.getPassengerCount() + "");
-        //totalTickets.setStyle("-fx-padding: 0px 0px 0px 50px;");
+        totalTickets.setStyle("-fx-padding: 0px 0px 0px 50px;");
         grid.add(orderInfo, 0, 2);
-        grid.add(totalTickets, 1, 2);
+        grid.add(totalTickets, 1, 2, 2, 1);
 
         Label lockedLabel = new Label("\uD83D\uDD12 This is not a real input form. Please do not put your actual information.");
         grid.add(lockedLabel, 0, 3, 4, 1);
@@ -108,11 +109,12 @@ public class InputInfoController implements Controller {
         ComboBox countrySel = new ComboBox();
         String[] countries = getCountries().split("\n");
         countrySel.getItems().addAll(countries);
-        countrySel.setPromptText("Select Country");
+        countrySel.setPrefWidth(120);
         grid.add(countryLab, 0, 12);
         grid.add(countrySel, 1, 12, 1, 1);
 
         Button submitBtn = new Button("Confirm Order");
+        submitBtn.setPrefWidth(140);
         grid.add(submitBtn, 3, 13);
 
         mainPanel.add(grid, 0, 0);

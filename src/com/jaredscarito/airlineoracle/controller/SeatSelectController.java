@@ -45,7 +45,24 @@ public class SeatSelectController implements Controller {
 
         GridPane buttonGrid = new GridPane();
         buttonGrid.setTranslateX(-25);
-        buttonGrid.setTranslateY(1260);
+        String osName = System.getProperty("os.name").toLowerCase();
+        boolean isMacOs = osName.startsWith("mac os x");
+        int buttonHeight, buttonWidth;
+        if (!isMacOs) {
+            buttonGrid.setTranslateY(1260);
+            buttonWidth = 20;
+            buttonHeight = 21;
+        } else {
+            buttonGrid.setTranslateY(1130);
+            buttonWidth = 25;
+            buttonHeight = 21;
+            scrollGrid.setBackground(new Background(new BackgroundImage(new Image(
+                    "com/jaredscarito/airlineoracle/view/Delta-Airplane-Layout-EDITED.jpg"), BackgroundRepeat.NO_REPEAT,
+                    BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(main.getScreenWidth() * 2.7,
+                    main.getScreenHeight() * 2.7, false, false, false, false))));
+            scrollGrid.setPrefHeight(main.getToolKit().getScreenSize().getHeight() * 2.7);
+            scrollGrid.setPrefWidth(main.getToolKit().getScreenSize().getWidth() * 2.7);
+        }
         buttonGrid.setId("ButtonGrid");
         buttonGrid.setVgap(0);
         String letters = "ABCDEFG";
@@ -58,8 +75,8 @@ public class SeatSelectController implements Controller {
             Button btn = new Button("");
             // TODO Need to check if seat is taken
             // TODO SQL FOR ABOVE ^^^
-            // NOT TAKEN:
-            btn.setGraphic(new ImageView(new Image("com/jaredscarito/airlineoracle/view/empty-main-seat.png", 20, 21, true, true)));
+            // NOT TAKEN: Width:20 Height:21
+            btn.setGraphic(new ImageView(new Image("com/jaredscarito/airlineoracle/view/empty-main-seat.png", buttonWidth, buttonHeight, true, true)));
             // TAKEN:
             //btn.setGraphic(new ImageView(new Image("com/jaredscarito/airlineoracle/view/taken-main-seat.png", 20, 21, true, true)));
             // END TODO
