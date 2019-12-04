@@ -63,6 +63,7 @@ public class InputInfoController implements Controller {
         monthSelect.getItems().addAll("January", "February", "March", "April", "May", "June", "July",
                 "August", "September", "October", "November", "December");
         monthSelect.setPromptText("Month");
+        monthSelect.setPrefWidth(120);
         ComboBox yearSelect = new ComboBox();
         yearSelect.getItems().addAll("2020", "2021", "2022", "2023", "2024", "2025", "2026");
         yearSelect.setPromptText("Year");
@@ -73,8 +74,9 @@ public class InputInfoController implements Controller {
         Label csvLab = new Label("CSV:");
         csvLab.getStyleClass().add("inputLabel");
         TextField csvDef = new TextField();
+        csvDef.setPrefWidth(120);
         grid.add(csvLab, 0, 6);
-        grid.add(csvDef, 1, 6, 2, 1);
+        grid.add(csvDef, 1, 6, 1, 1);
 
         Label infoLab = new Label("Address Information");
         infoLab.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
