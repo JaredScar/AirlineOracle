@@ -1,6 +1,7 @@
 package com.jaredscarito.airlineoracle.controller;
 
 import com.jaredscarito.airlineoracle.main.Main;
+import com.jaredscarito.airlineoracle.model.SQLHelper;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -42,6 +43,7 @@ public class SeatSelectController implements Controller {
                 main.getScreenHeight() * 2.5, false, false, false, false))));
         scrollGrid.setPrefHeight(main.getToolKit().getScreenSize().getHeight() * 2.5);
         scrollGrid.setPrefWidth(main.getToolKit().getScreenSize().getWidth() * 2.5);
+        SQLHelper helper = main.getHelper();
 
         GridPane buttonGrid = new GridPane();
         buttonGrid.setTranslateX(-25);
@@ -73,17 +75,17 @@ public class SeatSelectController implements Controller {
             char curLet = letters.charAt(currLetIndex);
             currLetIndex++;
             Button btn = new Button("");
-            // TODO Need to check if seat is taken
-            // TODO SQL FOR ABOVE ^^^
-            // NOT TAKEN: Width:20 Height:21
-            btn.setGraphic(new ImageView(new Image("com/jaredscarito/airlineoracle/view/empty-main-seat.png", buttonWidth, buttonHeight, true, true)));
-            // TAKEN:
-            //btn.setGraphic(new ImageView(new Image("com/jaredscarito/airlineoracle/view/taken-main-seat.png", 20, 21, true, true)));
-            // END TODO
+            String seat = (rowInd + 22) + "" + curLet;
+            if (!helper.isSeatTaken(seat)) {
+                // NOT TAKEN: Width:20 Height:21
+                btn.setGraphic(new ImageView(new Image("com/jaredscarito/airlineoracle/view/empty-main-seat.png", buttonWidth, buttonHeight, true, true)));
+            } else {
+                // TAKEN:
+                //btn.setGraphic(new ImageView(new Image("com/jaredscarito/airlineoracle/view/taken-main-seat.png", buttonWidth, buttonHeight, true, true)));
+            }
             btn.getStyleClass().add("seatButton");
             Tooltip tip = new Tooltip("Seat " + (rowInd + 22) + "" + curLet);
             btn.setTooltip(tip);
-            String seat = (rowInd + 22) + "" + curLet;
             btn.setOnAction(new EventHandler<ActionEvent>() {
                 String[] selectedSeats = new String[9];
                 @Override

@@ -32,4 +32,23 @@ public class SQLHelper {
             return false;
         }
     }
+
+    /**
+     * Checks if seat is taken through SQL query
+     * @param seat
+     * @return TRUE if seat is taken, FALSE if seat is not taken
+     */
+    public boolean isSeatTaken(String seat) {
+        // TODO Need to do the SQL
+        return false;
+    }
+
+    /**
+     * Set the seats taken in SQL execution
+     * @param seats
+     * @return TRUE if SQL execute goes through successful
+     */
+    public boolean setSeatsTaken(String[] seats) {
+        return false;
+    }
 }
