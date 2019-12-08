@@ -11,7 +11,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 
 public class SeatSelectController implements Controller {
@@ -30,7 +29,7 @@ public class SeatSelectController implements Controller {
         //      "com/jaredscarito/airlineoracle/view/Delta-Airplane-Layout.png"), BackgroundRepeat.NO_REPEAT,
         //    BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(main.getScreenWidth(),
         //  main.getScreenHeight(), false, false, false, true))));
-        ImageView plane = new ImageView(new Image("com/jaredscarito/airlineoracle/view/Delta-Airplane-Layout.png"));
+        ImageView plane = new ImageView(new Image("com/jaredscarito/airlineoracle/view/Delta-Airplane-Layout-EDITED.png"));
         plane.setFitWidth(main.getToolKit().getScreenSize().getWidth() * 5);
         plane.setFitHeight(main.getToolKit().getScreenSize().getHeight() * 5);
 
@@ -38,7 +37,7 @@ public class SeatSelectController implements Controller {
         scrollGrid.setAlignment(Pos.TOP_CENTER);
         scrollGrid.setId("ScrollGrid");
         scrollGrid.setBackground(new Background(new BackgroundImage(new Image(
-                "com/jaredscarito/airlineoracle/view/Delta-Airplane-Layout-EDITED.jpg"), BackgroundRepeat.NO_REPEAT,
+                "com/jaredscarito/airlineoracle/view/Delta-Airplane-Layout-EDITED.png"), BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(main.getScreenWidth() * 2.5,
                 main.getScreenHeight() * 2.5, false, false, false, false))));
         scrollGrid.setPrefHeight(main.getToolKit().getScreenSize().getHeight() * 2.5);
@@ -59,7 +58,7 @@ public class SeatSelectController implements Controller {
             buttonWidth = 25;
             buttonHeight = 21;
             scrollGrid.setBackground(new Background(new BackgroundImage(new Image(
-                    "com/jaredscarito/airlineoracle/view/Delta-Airplane-Layout-EDITED.jpg"), BackgroundRepeat.NO_REPEAT,
+                    "com/jaredscarito/airlineoracle/view/Delta-Airplane-Layout-EDITED.png"), BackgroundRepeat.NO_REPEAT,
                     BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(main.getScreenWidth() * 2.7,
                     main.getScreenHeight() * 2.7, false, false, false, false))));
             scrollGrid.setPrefHeight(main.getToolKit().getScreenSize().getHeight() * 2.7);
@@ -126,7 +125,7 @@ public class SeatSelectController implements Controller {
                     //System.out.println("The length of selected is: " + selected);
                     if (main.getPassengerCount() == main.getSeatsSelCount()) {
                         // They have selected the right count, show the button to go to next page
-                        // TODO Change this to a button
+                        selectedSeats = new String[9];
                         main.getLoadingControl().start(main.getInputInfoController());
                     }
                     System.out.println("You are clicking " + "Seat " + seat); //TODO  DEBUG - Get rid of
@@ -164,7 +163,7 @@ public class SeatSelectController implements Controller {
 
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setHvalue( (scrollPane.getHmax() - scrollPane.getHmin()) / 2);
-        mainPanel.add(scrollPane, 0, 0);
+        mainPanel.add(scrollPane, 0, 1);
 
         double width, height;
         width = main.getScreenWidth();

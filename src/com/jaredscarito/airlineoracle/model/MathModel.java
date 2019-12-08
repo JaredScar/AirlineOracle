@@ -90,6 +90,7 @@ public class MathModel {
             b2 = (plugX1squared * plugX2Y - plugX1X2 * plugX1Y) / (plugX1squared * plugX2sqaured - plugX1X2 * plugX1X2);
             a = meanY - b1 * meanX1 - b2 * meanX2;
             //System.out.println("y = " + a + " + " + b1 + " x1 " + b2 + " x2"); // DEBUG -- Get rid of
+            // a + b1 (availableSeats) + b2 (days_to_flight)
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

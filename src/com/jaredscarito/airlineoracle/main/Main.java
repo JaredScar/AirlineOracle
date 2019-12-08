@@ -1,9 +1,6 @@
 package com.jaredscarito.airlineoracle.main;
 
-import com.jaredscarito.airlineoracle.controller.InputInfoController;
-import com.jaredscarito.airlineoracle.controller.LoadingController;
-import com.jaredscarito.airlineoracle.controller.SeatSelectController;
-import com.jaredscarito.airlineoracle.controller.SelectionController;
+import com.jaredscarito.airlineoracle.controller.*;
 import com.jaredscarito.airlineoracle.model.MathModel;
 import com.jaredscarito.airlineoracle.model.SQLHelper;
 import javafx.application.Application;
@@ -22,7 +19,28 @@ public class Main extends Application {
     private LoadingController loadingControl;
     private SeatSelectController seatSelectController;
     private InputInfoController inputInfoController;
+    private MilesIDController milesIDController;
+    private SelectionController selectionController;
+    private ReservationInformationController resInformationController;
     private SQLHelper helper;
+
+    private double price = 0.0;
+
+    private String milesID = "";
+
+    public String getMilesID() {
+        return milesID;
+    }
+    public void setMilesID(String milesID) {
+        this.milesID = milesID;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+    public void setPrice(double price) {
+        this.price = price;
+    }
 
     // Need to keep track of this data:
     private int passengerCount = 0;
@@ -67,13 +85,18 @@ public class Main extends Application {
         ));
         // Controllers START
         SelectionController selectControl = new SelectionController(this);
-        selectControl.start();
         LoadingController loadingControl = new LoadingController(this);
         SeatSelectController seatControl = new SeatSelectController(this);
         InputInfoController inputInfoController = new InputInfoController(this);
+        MilesIDController milesIDController = new MilesIDController(this);
+        ReservationInformationController resInformationController = new ReservationInformationController(this);
         this.seatSelectController = seatControl;
         this.inputInfoController = inputInfoController;
         this.loadingControl = loadingControl;
+        this.milesIDController = milesIDController;
+        this.resInformationController = resInformationController;
+        this.selectionController = selectControl;
+        milesIDController.start();
         // Controllers END
         primaryStage.getScene().getStylesheets().add("com/jaredscarito/airlineoracle/view/style.css");
         primaryStage.show();
@@ -86,6 +109,7 @@ public class Main extends Application {
                     "jscarito", "0341922");
             System.out.println("IT CONNECTED!");
         } catch (SQLException e) {
+            helper = new SQLHelper();
             e.printStackTrace();
         }
         // TESTING:
@@ -124,6 +148,18 @@ public class Main extends Application {
 
     public InputInfoController getInputInfoController() {
         return this.inputInfoController;
+    }
+
+    public SelectionController getSelectionController() {
+        return this.selectionController;
+    }
+
+    public MilesIDController getMilesIDController() {
+        return this.milesIDController;
+    }
+
+    public ReservationInformationController getResInformationController() {
+        return this.resInformationController;
     }
 
     public static void main(String[] args) {

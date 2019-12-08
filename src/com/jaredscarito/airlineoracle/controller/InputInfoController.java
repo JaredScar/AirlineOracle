@@ -1,15 +1,26 @@
 package com.jaredscarito.airlineoracle.controller;
 
 import com.jaredscarito.airlineoracle.main.Main;
+import com.jaredscarito.airlineoracle.model.ApplicableRules;
+import com.jaredscarito.airlineoracle.model.MathModel;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.Random;
+
+import static java.time.temporal.ChronoUnit.DAYS;
 
 public class InputInfoController implements Controller {
     private Main main;
@@ -48,14 +59,41 @@ public class InputInfoController implements Controller {
         grid.add(orderInfo, 0, 2);
         grid.add(totalTickets, 1, 2, 2, 1);
 
+        Label priceLabel = new Label("Price:");
+        priceLabel.getStyleClass().add("inputLabel");
+        //MathModel.getCoefficients(main);
+        // a + b1 (availableSeats) + b2 (days_to_flight)
+        int availableSeats = 0;
+        double priceFromRegress = 100;
+        LocalDate localDate = LocalDate.now();
+        long days_to_flight = DAYS.between(localDate, main.getDateSelected());
+        try {
+            ResultSet res = main.getHelper().runQuery("SELECT COUNT(*) FROM Reservations");
+            res.next();
+            availableSeats = res.getInt(1);
+            priceFromRegress = MathModel.a + MathModel.b1 * availableSeats + MathModel.b2 * days_to_flight;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        double price = priceFromRegress;
+        price = ApplicableRules.applyHolidaySurgeCharge(price, main.getDateSelected());
+        price = ApplicableRules.applySummerSurge(price, main.getDateSelected());
+        price = ApplicableRules.applyWeekendSurge(price, main.getDateSelected());
+        DecimalFormat decFormat = new DecimalFormat("00.00");
+        Label prices = new Label("$" + decFormat.format(price));
+        main.setPrice(price);
+        prices.setStyle("-fx-padding: 0px 0px 0px 50px;");
+        grid.add(priceLabel, 0, 3);
+        grid.add(prices, 1, 3, 2, 1);
+
         Label lockedLabel = new Label("\uD83D\uDD12 This is not a real input form. Please do not put your actual information.");
-        grid.add(lockedLabel, 0, 3, 4, 1);
+        grid.add(lockedLabel, 0, 4, 4, 1);
 
         Label cardNumber = new Label("Card Number:");
         cardNumber.getStyleClass().add("inputLabel");
         TextField cardNumberDef = new TextField();
-        grid.add(cardNumber, 0, 4);
-        grid.add(cardNumberDef, 1, 4, 2, 1);
+        grid.add(cardNumber, 0, 5);
+        grid.add(cardNumberDef, 1, 5, 2, 1);
 
         Label expiryDate = new Label("Expiry Date:");
         expiryDate.getStyleClass().add("inputLabel");
@@ -67,44 +105,44 @@ public class InputInfoController implements Controller {
         ComboBox yearSelect = new ComboBox();
         yearSelect.getItems().addAll("2020", "2021", "2022", "2023", "2024", "2025", "2026");
         yearSelect.setPromptText("Year");
-        grid.add(expiryDate, 0, 5);
-        grid.add(monthSelect, 1, 5);
-        grid.add(yearSelect, 2, 5);
+        grid.add(expiryDate, 0, 6);
+        grid.add(monthSelect, 1, 6);
+        grid.add(yearSelect, 2, 6);
 
         Label csvLab = new Label("CSV:");
         csvLab.getStyleClass().add("inputLabel");
         TextField csvDef = new TextField();
         csvDef.setPrefWidth(120);
-        grid.add(csvLab, 0, 6);
-        grid.add(csvDef, 1, 6, 1, 1);
+        grid.add(csvLab, 0, 7);
+        grid.add(csvDef, 1, 7, 1, 1);
 
         Label infoLab = new Label("Address Information");
         infoLab.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
-        grid.add(infoLab, 0, 7, 3, 1);
+        grid.add(infoLab, 0, 8, 3, 1);
 
         Label addressLab = new Label("Address:");
         addressLab.getStyleClass().add("inputLabel");
         TextField addressDef = new TextField();
-        grid.add(addressLab, 0, 8);
-        grid.add(addressDef, 1, 8, 2, 1);
+        grid.add(addressLab, 0, 9);
+        grid.add(addressDef, 1, 9, 2, 1);
 
         Label cityTownLab = new Label("City/Town:");
         cityTownLab.getStyleClass().add("inputLabel");
         TextField cityTownDef = new TextField();
-        grid.add(cityTownLab, 0, 9);
-        grid.add(cityTownDef, 1, 9, 2, 1);
+        grid.add(cityTownLab, 0, 10);
+        grid.add(cityTownDef, 1, 10, 2, 1);
 
         Label stateLab = new Label("State/Province:");
         stateLab.getStyleClass().add("inputLabel");
         TextField stateDef = new TextField();
-        grid.add(stateLab, 0, 10);
-        grid.add(stateDef, 1, 10, 2, 1);
+        grid.add(stateLab, 0, 11);
+        grid.add(stateDef, 1, 11, 2, 1);
 
         Label zipLab = new Label("Post/Zip Code:");
         zipLab.getStyleClass().add("inputLabel");
         TextField zipDef = new TextField();
-        grid.add(zipLab, 0, 11);
-        grid.add(zipDef, 1, 11, 2, 1);
+        grid.add(zipLab, 0, 12);
+        grid.add(zipDef, 1, 12, 2, 1);
 
         Label countryLab = new Label("Country:");
         countryLab.getStyleClass().add("inputLabel");
@@ -112,14 +150,69 @@ public class InputInfoController implements Controller {
         String[] countries = getCountries().split("\n");
         countrySel.getItems().addAll(countries);
         countrySel.setPrefWidth(120);
-        grid.add(countryLab, 0, 12);
-        grid.add(countrySel, 1, 12, 1, 1);
+        grid.add(countryLab, 0, 13);
+        grid.add(countrySel, 1, 13, 1, 1);
 
         Button submitBtn = new Button("Confirm Order");
         submitBtn.setPrefWidth(140);
-        grid.add(submitBtn, 3, 13);
+        submitBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                // It was clicked, we need to calculate the price of tickets, and everything else
+                if (cardNumberDef.getText().length() > 0 && expiryDate.getText().length() > 0 &&
+                !monthSelect.getSelectionModel().isEmpty() && !yearSelect.getSelectionModel().isEmpty() &&
+                csvDef.getText().length() > 0 && addressDef.getText().length() > 0 && cityTownDef.getText().length() > 0 &&
+                stateDef.getText().length() > 0 && zipDef.getText().length() > 0 && !countrySel.getSelectionModel().isEmpty()) {
+                    // INSERT DATA, MOVE TO NEXT PAGE
+                    try {
+                        String code = getMilesID();
+                        boolean alreadyHasCode = false;
+                        while (!alreadyHasCode) {
+                            code = getMilesID();
+                            ResultSet res = main.getHelper().runQuery("SELECT COUNT(*) FROM Reservations WHERE milesID " +
+                                    "= '" + code + "'");
+                            res.next();
+                            if (res.getInt(1) == 0) {
+                                alreadyHasCode = true;
+                                main.setMilesID(code);
+                            }
+                        }
+                        for (String seat : main.getSeatsSelected()) {
+                            if (main.getHelper().runStatement("INSERT INTO Reservations VALUES (" + seat + ", " + code + ")")) {
+                                // It ran
+                            } else {
+                                Alert alert;
+                                alert = new Alert(Alert.AlertType.ERROR);
+                                alert.setTitle("ERROR");
+                                alert.setHeaderText("PROBLEM ON SQL INSERTION");
+                                alert.setContentText("Could not insert seat " + seat + " into Reservations Table...");
+                                alert.showAndWait();
+                            }
+                        }
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                        Alert alert;
+                        alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("ERROR");
+                        alert.setHeaderText("PROBLEM ON SQL CONNECTION");
+                        alert.setContentText("We are not connected to the SQL database :(");
+                        alert.showAndWait();
+                    }
+                    // Go to next page
+                    main.getLoadingControl().start(main.getResInformationController());
+                } else {
+                    Alert alert;
+                    alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("NOTICE");
+                    alert.setHeaderText("ALL FIELDS MUST BE FILLED OUT");
+                    alert.setContentText(null);
+                    alert.showAndWait();
+                }
+            }
+        });
+        grid.add(submitBtn, 3, 14);
 
-        mainPanel.add(grid, 0, 0);
+        mainPanel.add(grid, 0, 1);
 
         mainPanel.setAlignment(Pos.CENTER);
 
@@ -129,6 +222,22 @@ public class InputInfoController implements Controller {
         main.getPrimaryStage().setScene(new Scene(mainPanel, width, height));
         main.getPrimaryStage().getScene().getStylesheets().add("com/jaredscarito/airlineoracle/view/style.css");
         main.getPrimaryStage().show();
+    }
+
+    public String getMilesID() {
+        String alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        Random rand = new Random();
+        String code = "";
+        for (int i=0; i < 15; i++) {
+            if (i % 2 == 0) {
+                // Alphabet letter
+                code += alpha.charAt( rand.nextInt((alpha.length() - 1)) );
+            } else {
+                // Number letter
+                code += rand.nextInt(9);
+            }
+        }
+        return code;
     }
 
     public String getCountries() {

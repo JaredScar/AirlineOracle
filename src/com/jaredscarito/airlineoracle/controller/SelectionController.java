@@ -5,13 +5,9 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DateCell;
-import javafx.scene.control.DatePicker;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
 
 import java.time.LocalDate;
@@ -25,6 +21,10 @@ public class SelectionController implements Controller {
 
     @Override
     public void start() {
+        main.setPassengerCount(0);
+        main.setDateSelected(null);
+        main.setSeatsSelected(new String[] {});
+        main.setSeatsSelCount(0);
         GridPane mainPanel = new GridPane();
         mainPanel.setId("main");
 
@@ -36,7 +36,14 @@ public class SelectionController implements Controller {
         img.setId("logo");
         img.setFitHeight(100);
         img.setFitWidth(240);
-        grid.add(img, 0, 0);
+        grid.add(img, 0, 1);
+
+        Label flightInfoFrom = new Label("FROM: JFK");
+        Label flightInfoTo = new Label("TO: LAX");
+        flightInfoFrom.getStyleClass().add("infoLabel");
+        flightInfoTo.getStyleClass().add("infoLabel");
+        grid.add(flightInfoFrom, 0, 2);
+        grid.add(flightInfoTo, 0, 3);
 
         DatePicker picker = new DatePicker();
         picker.setId("DatePick");
@@ -51,7 +58,7 @@ public class SelectionController implements Controller {
         picker.getEditor().setDisable(true);
         picker.getEditor().setStyle("-fx-opacity: 1.0;");
         picker.getEditor().setText("Select Departure Date");
-        grid.add(picker, 0, 1);
+        grid.add(picker, 0, 4);
 
         ComboBox passengers = new ComboBox();
         passengers.setPromptText("Select Passenger Amount");
@@ -65,7 +72,7 @@ public class SelectionController implements Controller {
         passengers.getItems().add("7 Passengers");
         passengers.getItems().add("8 Passengers");
         passengers.getItems().add("9 Passengers");
-        grid.add(passengers, 0, 2);
+        grid.add(passengers, 0, 5);
 
         Button submit = new Button("Submit");
         submit.setId("SubmitButton");
@@ -79,14 +86,23 @@ public class SelectionController implements Controller {
                             .replace("Passenger", "").replace(" ", "");
                 }
                 submit.setDisable(true);
+                Alert alert;
                 if (val == null) {
                     // They didn't put a date, bring an error
-                    //TODO
-                }
-                if (passengerVal.length() == 0) {
-                    // They didn't pick number of passengers, bring an error
-                    //TODO
-                }
+                    alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("NOTICE");
+                    alert.setHeaderText("You need to enter a departure date");
+                    alert.setContentText("The process can not be continued with until a departure date is specified...");
+                    alert.showAndWait();
+                } else
+                    if (passengerVal.length() == 0) {
+                        // They didn't pick number of passengers, bring an error
+                        alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setTitle("NOTICE");
+                        alert.setHeaderText("You need to select the amount of passengers you will be flying with");
+                        alert.setContentText("The process can not be continued until the passenger count is selected...");
+                        alert.showAndWait();
+                    }
                 if (val !=null && passengers.getValue() != null) {
                     // Move onto next screen
                     main.setDateSelected(val);
@@ -96,7 +112,7 @@ public class SelectionController implements Controller {
                 submit.setDisable(false);
             }
         });
-        grid.add(submit, 0, 3);
+        grid.add(submit, 0, 6);
 
         grid.setVgap(40);
 

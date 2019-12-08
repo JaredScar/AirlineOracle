@@ -1,14 +1,60 @@
+/* MilesID */
+#milesMain {
+    -fx-background-image: url("background-reservervations.jpg");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 100% 100%;
+}
+#milesContain {
+    -fx-background-color: #F1F1F1;
+    -fx-padding: 30px;
+}
+#loginToDelta {
+    -fx-font-size: 28px;
+    -fx-text-fill: #346da5;
+    -fx-pref-width: 360px;
+}
+#allFieldsReq {
+    -fx-font-size: 14px;
+    -fx-text-fill: #346da5;
+}
+#loginField {
+    -fx-pref-width: 360px;
+}
+#loginButton {
+    -fx-pref-width: 360px;
+    -fx-background-color: #346da5;
+    -fx-text-fill: white;
+    -fx-font-weight: bolder;
+}
+#loginButton:hover {
+    -fx-cursor: hand;
+}
+#skipButton {
+    -fx-pref-width: 360px;
+    -fx-background-color: purple;
+    -fx-text-fill: white;
+    -fx-font-weight: bolder;
+}
+#skipButton:hover {
+    -fx-cursor: hand;
+}
+
+/* SelectionPage */
 #main {
     -fx-background-image: url("https://cdn-image.travelandleisure.com/sites/default/files/1561562676/delta-airplanes-atl-airport-DELTATEXT0619.jpg");
     -fx-background-repeat: no-repeat;
     -fx-background-size: 100% 100%;
 }
-/* SelectionPage */
 #SelectionGrid {
-    -fx-background-color: #bfbfbf;
+    -fx-background-color: #F1F1F1; /* #bfbfbf */
     -fx-padding: 20px 20px 20px 20px;
 }
 #logo {}
+.infoLabel {
+    -fx-font-size: 22px;
+    -fx-font-weight: bolder;
+    -fx-alignment: center;
+}
 #DatePick {
     -fx-max-width: 250px;
     -fx-min-width: 250px;
@@ -57,4 +103,44 @@
 #InputLogo {}
 .inputLabel {
     -fx-font-weight: bolder;
+}
+
+/* ReservationInformation */
+#resMain {
+    -fx-background-image: url("background-reservervations.jpg");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 100% 100%;
+}
+#resContain {
+    -fx-background-color: #F1F1F1;
+    -fx-padding: 50px 50px 50px 50px;
+}
+#yourOrder {
+    -fx-font-size: 24px;
+    -fx-underline: true;
+    -fx-font-weight: bolder;
+}
+#ticketsLab {
+    -fx-font-weight: bolder;
+    -fx-font-size: 17px;
+}
+#ticketCount {
+    -fx-font-size: 17px;
+}
+#seatsSelected {
+    -fx-font-weight: bolder;
+    -fx-font-size: 17px;
+}
+#seatsSelectedDef {
+    -fx-font-size: 17px;
+}
+#returnButton {
+    -fx-font-size: 17px;
+    -fx-font-weight: bolder;
+    -fx-background-color: purple;
+    -fx-text-fill: white;
+    -fx-pref-width: 260px;
+}
+#returnButton:hover {
+    -fx-cursor: hand;
 }
