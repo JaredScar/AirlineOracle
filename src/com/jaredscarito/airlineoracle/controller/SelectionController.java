@@ -21,10 +21,6 @@ public class SelectionController implements Controller {
 
     @Override
     public void start() {
-        main.setPassengerCount(0);
-        main.setDateSelected(null);
-        main.setSeatsSelected(new String[] {});
-        main.setSeatsSelCount(0);
         GridPane mainPanel = new GridPane();
         mainPanel.setId("main");
 

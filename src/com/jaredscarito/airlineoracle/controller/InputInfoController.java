@@ -61,7 +61,7 @@ public class InputInfoController implements Controller {
 
         Label priceLabel = new Label("Price:");
         priceLabel.getStyleClass().add("inputLabel");
-        //MathModel.getCoefficients(main);
+        MathModel.getCoefficients(main);
         // a + b1 (availableSeats) + b2 (days_to_flight)
         int availableSeats = 0;
         double priceFromRegress = 100;
@@ -75,7 +75,7 @@ public class InputInfoController implements Controller {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        double price = priceFromRegress;
+        double price = priceFromRegress * main.getPassengerCount();
         price = ApplicableRules.applyHolidaySurgeCharge(price, main.getDateSelected());
         price = ApplicableRules.applySummerSurge(price, main.getDateSelected());
         price = ApplicableRules.applyWeekendSurge(price, main.getDateSelected());
@@ -178,17 +178,23 @@ public class InputInfoController implements Controller {
                             }
                         }
                         for (String seat : main.getSeatsSelected()) {
-                            if (main.getHelper().runStatement("INSERT INTO Reservations VALUES (" + seat + ", " + code + ")")) {
-                                // It ran
-                            } else {
-                                Alert alert;
-                                alert = new Alert(Alert.AlertType.ERROR);
-                                alert.setTitle("ERROR");
-                                alert.setHeaderText("PROBLEM ON SQL INSERTION");
-                                alert.setContentText("Could not insert seat " + seat + " into Reservations Table...");
-                                alert.showAndWait();
+                            System.out.println("Trying to insert seat: " + seat);
+                            if (seat !=null) {
+                                if (main.getHelper().runStatement("INSERT INTO Reservations VALUES ('" + seat + "', '" + code + "')")) {
+                                    // It ran
+                                    main.getHelper().runStatement("COMMIT");
+                                    System.out.println("Inserted the Data");
+                                } else {
+                                    Alert alert;
+                                    alert = new Alert(Alert.AlertType.ERROR);
+                                    alert.setTitle("ERROR");
+                                    alert.setHeaderText("PROBLEM ON SQL INSERTION");
+                                    alert.setContentText("Could not insert seat " + seat + " into Reservations Table...");
+                                    alert.showAndWait();
+                                }
                             }
                         }
+                        main.setSeatsSelected(new String[9]);
                     } catch (Exception ex) {
                         ex.printStackTrace();
                         Alert alert;

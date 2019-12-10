@@ -80,20 +80,21 @@ public class SeatSelectController implements Controller {
                 btn.setGraphic(new ImageView(new Image("com/jaredscarito/airlineoracle/view/empty-main-seat.png", buttonWidth, buttonHeight, true, true)));
             } else {
                 // TAKEN:
-                //btn.setGraphic(new ImageView(new Image("com/jaredscarito/airlineoracle/view/taken-main-seat.png", buttonWidth, buttonHeight, true, true)));
+                btn.setDisable(true);
+                btn.setGraphic(new ImageView(new Image("com/jaredscarito/airlineoracle/view/taken-main-seat.png", buttonWidth, buttonHeight, true, true)));
             }
             btn.getStyleClass().add("seatButton");
             Tooltip tip = new Tooltip("Seat " + (rowInd + 22) + "" + curLet);
             btn.setTooltip(tip);
             btn.setOnAction(new EventHandler<ActionEvent>() {
-                String[] selectedSeats = new String[9];
+                String[] selectedSeats = main.getSeatsSelected();
                 @Override
                 public void handle(ActionEvent event) {
                     // We need to track which seat row and letter this is, then have it save it somewhere
                     // and it needs to check if they selected the number of seats they wanted, then progress to next
                     boolean wasSelected = false;
                     for (int i=0; i < selectedSeats.length; i++) {
-                        if (selectedSeats[i] !=null) {
+                        if (selectedSeats[i] !=null && selectedSeats[i].equals(seat)) {
                             // It was selected already
                             wasSelected = true;
                         }
@@ -104,11 +105,14 @@ public class SeatSelectController implements Controller {
                         System.out.println("The select count is: " + main.getSeatsSelCount());
                         main.setSeatsSelCount(main.getSeatsSelCount() + 1);
                         for (int i=0; i < selectedSeats.length; i++) {
+                            System.out.println("The seat is " + selectedSeats[i]);
                             if (selectedSeats[i] == null) {
                                 selectedSeats[i] = seat;
+                                System.out.println("Inserted seat " + seat + " into selectedSeats[] at position " + i);
                                 break;
                             }
                         }
+                        main.setSeatsSelected(selectedSeats);
                         btn.setGraphic(new ImageView(new Image("com/jaredscarito/airlineoracle/view/taken-main-seat.png", 20, 21, true, true)));
                     } else {
                         // Unselect it
@@ -120,12 +124,16 @@ public class SeatSelectController implements Controller {
                                 break;
                             }
                         }
+                        main.setSeatsSelected(selectedSeats);
                         btn.setGraphic(new ImageView(new Image("com/jaredscarito/airlineoracle/view/empty-main-seat.png", 20, 21, true, true)));
                     }
                     //System.out.println("The length of selected is: " + selected);
                     if (main.getPassengerCount() == main.getSeatsSelCount()) {
                         // They have selected the right count, show the button to go to next page
-                        selectedSeats = new String[9];
+                        for(String seat : selectedSeats) {
+                            System.out.println("selectedSeats[] has seat " + seat);
+                        }
+                        main.setSeatsSelected(selectedSeats);
                         main.getLoadingControl().start(main.getInputInfoController());
                     }
                     System.out.println("You are clicking " + "Seat " + seat); //TODO  DEBUG - Get rid of

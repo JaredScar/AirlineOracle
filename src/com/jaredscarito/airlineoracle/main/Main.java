@@ -45,7 +45,7 @@ public class Main extends Application {
     // Need to keep track of this data:
     private int passengerCount = 0;
     private LocalDate dateSelected = null;
-    private String[] seatsSelected;
+    private String[] seatsSelected = new String[9];
     private int seatsSelCount = 0;
 
     public void setPassengerCount(int count) {

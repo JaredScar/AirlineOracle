@@ -13,6 +13,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
 import java.sql.ResultSet;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 public class ReservationInformationController implements Controller {
     private Main main;
@@ -41,20 +43,27 @@ public class ReservationInformationController implements Controller {
         yourOrder.setId("yourOrder");
         grid.add(yourOrder, 0, 2);
 
-        Label totalTicks = new Label("Total Tickets:");
+        Label mileID = new Label("Mile ID:");
+        
+        TextField mileIDDef = new TextField(main.getMilesID());
+        mileIDDef.setEditable(false);
+        grid.add(mileID, 0, 3);
+        grid.add(mileIDDef, 1, 3); 
+        
+        Label totalTicks = new Label("Seats Selected:");
         totalTicks.setId("ticketsLab");
         Label tickets = new Label("NOT CONNECTED TO SQL");
         tickets.setId("ticketCount");
-        grid.add(totalTicks, 0, 3);
-        grid.add(tickets, 1, 3);
+        grid.add(totalTicks, 0, 4);
+        grid.add(tickets, 1, 4);
 
-        Label seatsSelected = new Label("Seats Selected:");
+        Label seatsSelected = new Label("Total Tickets:");
         seatsSelected.setId("seatsSelected");
 
         Label seatsSelectedDef = new Label("NOT CONNECTED TO SQL");
         seatsSelectedDef.setId("seatsSelectedDef");
-        grid.add(seatsSelected, 0, 4);
-        grid.add(seatsSelectedDef, 1, 4);
+        grid.add(seatsSelected, 0, 5);
+        grid.add(seatsSelectedDef, 1, 5);
 
         // SQL for ticket count for milesID, for seats selected
         StringBuilder ticketsStr = new StringBuilder();
@@ -67,7 +76,7 @@ public class ReservationInformationController implements Controller {
                 String seat = res.getString(1);
                 ticketsStr.append(seat).append(", ");
             }
-            String str = ticketsStr.substring(0, ticketsStr.length() - 2);
+            String str = ticketsStr.toString().substring(0, ticketsStr.toString().length() - 2);
             tickets.setText(str);
         } catch (Exception ex) {
             ex.printStackTrace(); // SQL Exception probably
@@ -81,7 +90,7 @@ public class ReservationInformationController implements Controller {
                 main.getLoadingControl().start(main.getMilesIDController());
             }
         });
-        grid.add(returnButton, 0, 5, 2, 1);
+        grid.add(returnButton, 0, 6, 2, 1);
 
         mainPanel.add(grid, 0, 0);
 

@@ -49,13 +49,17 @@ public class MilesIDController implements Controller {
                 /**/ // TODO Uncomment this for final program
                 Alert alert;
                 try {
-                    ResultSet res = main.getHelper().runQuery("SELECT COUNT(*) FROM Reservations WHERE milesID = '" +
-                            loginField.getText() + "'");
+                    ResultSet res = main.getHelper().runQuery("SELECT COUNT(*) FROM Reservations WHERE MILESID = '" +
+                            loginField.getText().replace(" ", "") + "'");
+                    System.out.println("SELECT COUNT(*) FROM Reservations WHERE MILESID = '" +
+                            loginField.getText().replace(" ", "") + "'");
+                    System.out.println("Checking Reservation ID with ID " + loginField.getText());
                     try {
                         res.next();
+                        System.out.print("ResultSet returns " + res.getInt(1));
                         if (res.getInt(1) >= 1) {
                             // It has a reservation, move onto ReservationInfo
-                            main.setMilesID(loginField.getText());
+                            main.setMilesID(loginField.getText().replace(" ", ""));
                             main.getLoadingControl().start(main.getResInformationController());
                         } else {
                             // Doesn't have a reservation

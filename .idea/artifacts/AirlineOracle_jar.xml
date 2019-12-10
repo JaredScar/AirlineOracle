@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="AirlineOracle:jar">
+    <output-path>$USER_HOME$/Downloads/AirlineOracle</output-path>
+    <root id="archive" name="AirlineOracle.jar">
+      <element id="module-output" name="AirlineOracle" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/jollyday-0.5.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/Delta Project Shit/ojdbc8.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

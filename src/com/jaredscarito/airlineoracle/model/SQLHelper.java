@@ -30,7 +30,8 @@ public class SQLHelper {
         Statement stmt = null;
         try {
             stmt = conn.createStatement();
-            return stmt.execute(state);
+            stmt.execute(state);
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
