@@ -13,8 +13,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
 import java.sql.ResultSet;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 
 public class ReservationInformationController implements Controller {
     private Main main;

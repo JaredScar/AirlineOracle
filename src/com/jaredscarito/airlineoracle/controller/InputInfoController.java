@@ -61,21 +61,26 @@ public class InputInfoController implements Controller {
 
         Label priceLabel = new Label("Price:");
         priceLabel.getStyleClass().add("inputLabel");
-        MathModel.getCoefficients(main);
-        // a + b1 (availableSeats) + b2 (days_to_flight)
-        int availableSeats = 0;
-        double priceFromRegress = 100;
-        LocalDate localDate = LocalDate.now();
-        long days_to_flight = DAYS.between(localDate, main.getDateSelected());
+        double price = 100;
         try {
-            ResultSet res = main.getHelper().runQuery("SELECT COUNT(*) FROM Reservations");
-            res.next();
-            availableSeats = res.getInt(1);
-            priceFromRegress = MathModel.a + MathModel.b1 * availableSeats + MathModel.b2 * days_to_flight;
+            MathModel.getCoefficients(main);
+            // a + b1 (availableSeats) + b2 (days_to_flight)
+            int availableSeats = 0;
+            double priceFromRegress = 100;
+            LocalDate localDate = LocalDate.now();
+            long days_to_flight = DAYS.between(localDate, main.getDateSelected());
+            try {
+                ResultSet res = main.getHelper().runQuery("SELECT COUNT(*) FROM Reservations");
+                res.next();
+                availableSeats = res.getInt(1);
+                priceFromRegress = MathModel.a + MathModel.b1 * availableSeats + MathModel.b2 * days_to_flight;
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            price = priceFromRegress * main.getPassengerCount();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        double price = priceFromRegress * main.getPassengerCount();
         price = ApplicableRules.applyHolidaySurgeCharge(price, main.getDateSelected());
         price = ApplicableRules.applySummerSurge(price, main.getDateSelected());
         price = ApplicableRules.applyWeekendSurge(price, main.getDateSelected());
